@@ -4,7 +4,7 @@ fan_rpm.sh
 /test
 /herz/test
 /herz/CPU_GHz
-/fans
+/fans/avg_fans
 vol.py
 volume_script_one_line.sh
 volume_script.sh
