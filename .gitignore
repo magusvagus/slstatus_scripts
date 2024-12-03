@@ -6,3 +6,4 @@ fan_rpm.sh
 /fans/avg_fans
 vol.py
 volume_script_one_line.sh
+/bat/bin
