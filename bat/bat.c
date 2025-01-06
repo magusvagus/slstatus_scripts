@@ -29,12 +29,12 @@ int main(){
 	// convert string variable to int
 		bat_perc_now = strtod(bat_perc, &endptr1);
 
-		printf("%2d", bat_perc_now);
+		printf(" %2d ", bat_perc_now);
 		
 	}
 	// if not it means plugged
 	else if (ENOENT == errno){
-		printf(" 󱘖");
+		printf(" ");
 	}
 
 	return 0;

@@ -1,3 +1,4 @@
+# x11-misc/xsensors needed
 temp="$(sensors | awk '/Core 0/ {print $3 } ' | tr -d \"+°C\")"
 temp=${temp%.*}
 
