@@ -46,15 +46,18 @@ int main(){
 
 	// print volume status with the corresponding color code
 	if (strcmp(mute, "on") != 10){
-		printf("  %s--%s",off_color, reset_color);
+		printf(" %s--%s",off_color, reset_color);
 	}
 	else if (volume_int == 0){
 		printf("  %lu%s", volume_int, reset_color);
 	}
-	else if (volume_int > 0){
+	else if (volume_int >= 1 && volume_int <= 9){
+		printf("  %lu%s", volume_int, reset_color);
+	}
+	else if (volume_int >= 10 && volume_int <= 19){
 		printf(" %lu%s", volume_int, reset_color);
 	}
-	else if (volume_int > 20){
+	else if (volume_int >= 20 && volume_int <= 99){
 		printf(" %lu%s", volume_int, reset_color);
 	}
 	else if (volume_int == 100){
