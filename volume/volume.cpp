@@ -10,14 +10,19 @@ int main(){
 	char crit_color[15]  = "^c#800000^";
 	char off_color[15]   = "^c#626262^";
 
+	// FILE variables for popen command pipe
+	FILE *output;
+	FILE *output2;
+
+	double volume_int;
 
 	char volume_str[10];
 	char mute[10];
 
 
 	// get script output to file pointer
-	FILE *output = popen("amixer get Master | tail -n1 | grep -Po '\\[\\K[^%]*' | head -n1", "r");
-	FILE *output2 = popen("amixer get Master | tail -n 1 | awk '{print $6}' | tr -d '[]'","r");
+	output = popen("amixer get Master | tail -n1 | grep -Po '\\[\\K[^%]*' | head -n1", "r");
+	output2 = popen("amixer get Master | tail -n 1 | awk '{print $6}' | tr -d '[]'","r");
 
 	// catch error if there is one
 	if (output == NULL || output2 == NULL) {
@@ -30,10 +35,7 @@ int main(){
 	fgets(mute, 10, output2);
 
 	// convert string to integer
-	char* endptr;
-	long volume_int;
-
-	volume_int = strtol(volume_str, &endptr, 10);
+	sscanf(volume_str, "%lf", &volume_int);
 
 	// close the file pipe
 	fclose(output);
@@ -49,22 +51,22 @@ int main(){
 		printf(" %s--%s",off_color, reset_color);
 	}
 	else if (volume_int == 0){
-		printf("  %lu%s", volume_int, reset_color);
+		printf("  %.0f%s", volume_int, reset_color);
 	}
 	else if (volume_int >= 1 && volume_int <= 9){
-		printf("  %lu%s", volume_int, reset_color);
+		printf("  %.0f%s", volume_int, reset_color);
 	}
 	else if (volume_int >= 10 && volume_int <= 19){
-		printf(" %lu%s", volume_int, reset_color);
+		printf(" %.0f%s", volume_int, reset_color);
 	}
 	else if (volume_int >= 20 && volume_int <= 99){
-		printf(" %lu%s", volume_int, reset_color);
+		printf(" %.0f%s", volume_int, reset_color);
 	}
 	else if (volume_int == 100){
 		printf(" %d%s", 99, reset_color);
 	}
 	else if (volume_int > 100){
-		printf("%s %lu%s",crit_color, volume_int, reset_color);
+		printf("%s %.0f%s",crit_color, volume_int, reset_color);
 	}
 
 	return 0;
