@@ -35,7 +35,7 @@ int main(){
 
 
 
-	if (tempeture_float >= 70){
+	if (tempeture_float >= 70 && tempeture_float < 80){
 		printf("%s %.0f%s",yellow ,tempeture_float, reset);
 	}
 	else if (tempeture_float >= 80){
