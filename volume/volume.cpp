@@ -24,7 +24,7 @@ int main(){
 	output = popen("amixer get Master | tail -n1 | grep -Po '\\[\\K[^%]*' | head -n1", "r");
 	output2 = popen("amixer get Master | tail -n 1 | awk '{print $6}' | tr -d '[]'","r");
 
-	// catch error if there is one
+	// catch error if variable is empty
 	if (output == NULL || output2 == NULL) {
 		perror("err!");
 		return 1;
