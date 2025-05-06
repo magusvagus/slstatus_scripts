@@ -1,0 +1,18 @@
+
+// TOGGLE TRANSPARENCY
+
+This is a Python script that goes through the .config/picom/picom.conf replacing previous set strings.
+
+Should be installed in /bin or /usr/bin for dmenu to be used.
+
+Make sure the targets and replacements variables have exactly the same lines as found in .config/picom/picom.conf
+This program needs updating if any of the used variables in the configuration file get changed.
+
+Unintall: Just delete /bin/transparency or /usr/bin/transparency.
+
+NOTE: Its advised to create backup of the config file before using the script.
+
+Created by: Magus Vagus 
+Anno 2025, May
+
+magusvagus@proton.me
