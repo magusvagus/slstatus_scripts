@@ -36,13 +36,13 @@ int main(){
 
 
 	if (tempeture_float >= 70 && tempeture_float < 80){
-		printf("%s %.0f%s",yellow ,tempeture_float, reset);
+		printf(" %.0f",tempeture_float);
 	}
 	else if (tempeture_float >= 80){
-		printf("%s %.0f%s",red ,tempeture_float, reset);
+		printf(" %.0f",tempeture_float);
 	}
 	else {
-		printf(" %.0f%s",tempeture_float, reset);
+		printf(" %.0f",tempeture_float);
 	}
 
 	return 0;

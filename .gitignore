@@ -3,7 +3,11 @@ slstatus_scrips/fan_rpm.sh
 slstatus_scrips/test
 slstatus_scrips/herz/test
 slstatus_scrips/herz/CPU_GHz
-slstatus_scrips/fans/avg_fans
 slstatus_scrips/vol.py
 slstatus_scrips/volume_script_one_line.sh
+slstatus_scrips/volume/volume_bin
 slstatus_scrips/bat/bin
+slstatus_scrips/cpu_tempeture/cpu_temp_bin
+slstatus_scripts/fans/avg_fans_bin
+slstatus_scripts/bat/bat_bin
+
