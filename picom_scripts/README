@@ -5,12 +5,12 @@ This is a Python script that goes through the .config/picom/picom.conf replacing
 
 Should be installed using a symlink in /bin or /usr/bin for dmenu to be used.
 
-    # ln -s /path/to/script /usr/bin/
+    # ln -s /full/path/to/script /usr/bin/
 
 Make sure the targets and replacements variables have exactly the same lines as found in .config/picom/picom.conf
 This program needs updating if any of the used variables in the configuration file get changed.
 
-Unintall: Just delete /bin/transparency or /usr/bin/transparency symlink.
+Unintall: Just delete the /bin/transparency or /usr/bin/transparency symlink.
 
 NOTE: Its advised to create backup of the config file before using the script.
 
@@ -18,3 +18,4 @@ Created by: Magus Vagus
 Anno Domini 2025, May
 
 magusvagus(at)proton.me
+
