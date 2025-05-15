@@ -13,14 +13,25 @@ Unintall: Just delete /bin/transparency or /usr/bin/transparency.
 NOTE: Its advised to create backup of the config file before using the script.
 
 Created by: Magus Vagus 
-Anno 2025, May
+Anno Domini 2025, May
 
-magusvagus@proton.me
+magusvagus(at)proton.me
 
 '''
 
-# TODO: add command line flags support
 import os
+import argparse
+
+
+# Initialize parser
+parser = argparse.ArgumentParser()
+#parser.parse_args()
+
+parser.add_argument("-b", "--browser", action='store_true', help="Toggle Browser transparency")
+parser.add_argument("-a", "--all", action='store_true', help="Toggle transparency globally")
+parser.add_argument("-p", "--pdf", action="store_true", help="Toggle PDF reader transperency")
+parser.add_argument("-t", "--terminal", action="store_true", help="Toggle terminal transperency")
+args = parser.parse_args()
 
 # returns 1 if searched string is in file, else returns 0
 def checkFile(search,file_path):
@@ -60,18 +71,19 @@ def main():
         exit()
 
 
+    # TODO : expand command-line options maybe make this more efficieint.
+
     #list of targets
     targets = [
-        "95:class_g = 'librewolf' && focused",
-        "89:class_g = 'librewolf' && !focused",
+        "95:class_g = 'waterfox' && focused",
+        "89:class_g = 'waterfox' && !focused",
     ]
 
     # list of corresponding replacements
     replace = [
-        "100:class_g = 'librewolf' && focused",
-        "100:class_g = 'librewolf' && !focused",
+        "100:class_g = 'waterfox' && focused",
+        "100:class_g = 'waterfox' && !focused",
     ]
-
 
 
     # look for one string and check for ERR
@@ -88,13 +100,26 @@ def main():
     # if returns 0 toggle back to previous set option
     check = checkFile(targets[0], file_path)
 
-    if check == 1:
-        for i in range(len(targets)):
-            WordReplace(targets[i], replace[i], file_path)
+    # FIX: this dosent look good
 
-    elif check == 0:
-        for i in range(len(targets)):
-            WordReplace(replace[i], targets[i], file_path)
+    if args.browser:
+        if check == 1:
+            for i in range(len(targets)):
+                WordReplace(targets[i], replace[i], file_path)
+
+        elif check == 0:
+            for i in range(len(targets)):
+                WordReplace(replace[i], targets[i], file_path)
+
+    else:
+        if check == 1:
+            for i in range(len(targets)):
+                WordReplace(targets[i], replace[i], file_path)
+
+        elif check == 0:
+            for i in range(len(targets)):
+                WordReplace(replace[i], targets[i], file_path)
+
 
 main()
 
