@@ -31,7 +31,7 @@ parser = argparse.ArgumentParser()
 
 parser.add_argument("-b", "--browser", action='store_true', help="Toggle Browser transparency")
 parser.add_argument("-a", "--all", action='store_true', help="Toggle transparency globally")
-parser.add_argument("-p", "--pdf", action="store_true", help="Toggle PDF reader transperency")
+#parser.add_argument("-p", "--pdf", action="store_true", help="Toggle PDF reader transperency")
 parser.add_argument("-t", "--terminal", action="store_true", help="Toggle terminal transperency")
 args = parser.parse_args()
 
@@ -74,19 +74,72 @@ def main():
 
 
     # TODO : expand command-line options maybe make this more efficieint.
+    # FIX: this is sooo bad, but im too lazy to change that at the moment.
 
     #list of targets
-    targets = [
-        "95:class_g = 'waterfox' && focused",
-        "89:class_g = 'waterfox' && !focused",
-    ]
+    if args.terminal:
+        targets = [
+            "#\"100:name *= 'st' && focused\"",
+            "#\"100:name *= 'st' && !focused\"",
+        ]
 
-    # list of corresponding replacements
-    replace = [
-        "100:class_g = 'waterfox' && focused",
-        "100:class_g = 'waterfox' && !focused",
-    ]
+        # list of corresponding replacements
+        replace = [
+            "\"100:name *= 'st' && focused\"",
+            "\"100:name *= 'st' && !focused\"",
+        ]
 
+        # NOTE: wont work due to mupdf changing the name based on the viewed file, -a must be used instead.
+
+    # elif args.pdf:
+    #     targets = [
+    #         "#\"100:name *= 'mupdf' && focused\"",
+    #         "#\"100:name *= 'mupdf' && !focused\"",
+    #     ]
+    #
+    #     # list of corresponding replacements
+    #     replace = [
+    #         "\"100:name *= 'mupdf' && focused\"",
+    #         "\"100:name *= 'mupdf' && !focused\"",
+    #     ]
+
+    elif args.browser:
+        targets = [
+            "95:class_g = 'waterfox' && focused",
+            "89:class_g = 'waterfox' && !focused",
+        ]
+
+        # list of corresponding replacements
+        replace = [
+            "100:class_g = 'waterfox' && focused",
+            "100:class_g = 'waterfox' && !focused",
+        ]
+    elif args.all:
+        targets = [
+            "#inactive-opacity = 0.8;",
+            "#active-opacity = 0.9",
+            "100:class_g = 'waterfox' && focused",
+            "100:class_g = 'waterfox' && !focused",
+        ]
+
+        # list of corresponding replacements
+        replace = [
+            "inactive-opacity = 0.8;",
+            "active-opacity = 0.9",
+            "95:class_g = 'waterfox' && focused",
+            "89:class_g = 'waterfox' && !focused",
+        ]
+    else:
+        targets = [
+            "95:class_g = 'waterfox' && focused",
+            "89:class_g = 'waterfox' && !focused",
+        ]
+
+        # list of corresponding replacements
+        replace = [
+            "100:class_g = 'waterfox' && focused",
+            "100:class_g = 'waterfox' && !focused",
+        ]
 
     # look for one string and check for ERR
     for i in range(len(targets)):
@@ -102,25 +155,13 @@ def main():
     # if returns 0 toggle back to previous set option
     check = checkFile(targets[0], file_path)
 
-    # FIX: this dosent look good
+    if check == 1:
+        for i in range(len(targets)):
+            WordReplace(targets[i], replace[i], file_path)
 
-    if args.browser:
-        if check == 1:
-            for i in range(len(targets)):
-                WordReplace(targets[i], replace[i], file_path)
-
-        elif check == 0:
-            for i in range(len(targets)):
-                WordReplace(replace[i], targets[i], file_path)
-
-    else:
-        if check == 1:
-            for i in range(len(targets)):
-                WordReplace(targets[i], replace[i], file_path)
-
-        elif check == 0:
-            for i in range(len(targets)):
-                WordReplace(replace[i], targets[i], file_path)
+    elif check == 0:
+        for i in range(len(targets)):
+            WordReplace(replace[i], targets[i], file_path)
 
 
 main()
